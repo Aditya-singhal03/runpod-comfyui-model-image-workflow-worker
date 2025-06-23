@@ -1,0 +1,489 @@
+{
+  "42": {
+    "inputs": {
+      "ckpt_name": "FLUX1/flux1-dev.sft"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "46": {
+    "inputs": {
+      "lora_01": "lily-ai-avatar.safetensors",
+      "strength_01": 0.8000000000000002,
+      "lora_02": "amateur-photography-forcu.safetensors",
+      "strength_02": 0.6000000000000001,
+      "lora_03": "another_amateur_photography.safetensors",
+      "strength_03": 0.6000000000000001,
+      "lora_04": "boreal.safetensors",
+      "strength_04": 0.8000000000000002,
+      "model": [
+        "42",
+        0
+      ],
+      "clip": [
+        "42",
+        1
+      ]
+    },
+    "class_type": "Lora Loader Stack (rgthree)",
+    "_meta": {
+      "title": "Lora Loader Stack (rgthree)"
+    }
+  },
+  "49": {
+    "inputs": {
+      "control_net_name": "FLUX.1/InstantX-FLUX1-Dev-Union/diffusion_pytorch_model.safetensors"
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {
+      "title": "Load ControlNet Model"
+    }
+  },
+  "50": {
+    "inputs": {
+      "type": "openpose",
+      "control_net": [
+        "49",
+        0
+      ]
+    },
+    "class_type": "SetUnionControlNetType",
+    "_meta": {
+      "title": "SetUnionControlNetType"
+    }
+  },
+  "51": {
+    "inputs": {
+      "UNKNOWN": 0.4,
+      "positive": [
+        "159",
+        0
+      ],
+      "negative": [
+        "116",
+        0
+      ],
+      "control_net": [
+        "50",
+        0
+      ],
+      "image": [
+        "126",
+        0
+      ]
+    },
+    "_meta": {}
+  },
+  "54": {
+    "inputs": {
+      "image": "pose_2025_03_18_14_13_33.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "64": {
+    "inputs": {
+      "model_name": "4x-ClearRealityV1.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  },
+  "69": {
+    "inputs": {
+      "positive": [
+        "51",
+        0
+      ],
+      "negative": [
+        "51",
+        1
+      ]
+    },
+    "class_type": "CondPassThrough",
+    "_meta": {
+      "title": "CondPassThrough"
+    }
+  },
+  "84": {
+    "inputs": {
+      "max_shift": 1.15,
+      "base_shift": 0.5,
+      "width": 1088,
+      "height": 1344,
+      "model": [
+        "46",
+        0
+      ]
+    },
+    "class_type": "ModelSamplingFlux",
+    "_meta": {
+      "title": "ModelSamplingFlux"
+    }
+  },
+  "85": {
+    "inputs": {
+      "sampler_name": "heun"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "86": {
+    "inputs": {
+      "scheduler": "beta",
+      "steps": 20,
+      "denoise": 1,
+      "model": [
+        "84",
+        0
+      ]
+    },
+    "class_type": "BasicScheduler",
+    "_meta": {
+      "title": "BasicScheduler"
+    }
+  },
+  "88": {
+    "inputs": {
+      "detail_amount": 0.30000000000000004,
+      "start": 0.3,
+      "end": 0.8,
+      "bias": 0.5,
+      "exponent": 1,
+      "start_offset": 0,
+      "end_offset": 0,
+      "fade": 0.05,
+      "smooth": true,
+      "cfg_scale_override": 0,
+      "sampler": [
+        "85",
+        0
+      ]
+    },
+    "class_type": "DetailDaemonSamplerNode",
+    "_meta": {
+      "title": "Detail Daemon Sampler"
+    }
+  },
+  "89": {
+    "inputs": {
+      "noise": [
+        "99",
+        0
+      ],
+      "guider": [
+        "90",
+        0
+      ],
+      "sampler": [
+        "85",
+        0
+      ],
+      "sigmas": [
+        "86",
+        0
+      ],
+      "latent_image": [
+        "97",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "90": {
+    "inputs": {
+      "cfg": 1,
+      "model": [
+        "46",
+        0
+      ],
+      "positive": [
+        "69",
+        0
+      ],
+      "negative": [
+        "69",
+        1
+      ]
+    },
+    "class_type": "CFGGuider",
+    "_meta": {
+      "title": "CFGGuider"
+    }
+  },
+  "97": {
+    "inputs": {
+      "width": 1088,
+      "height": 1344,
+      "batch_size": 1
+    },
+    "class_type": "EmptySD3LatentImage",
+    "_meta": {
+      "title": "EmptySD3LatentImage"
+    }
+  },
+  "98": {
+    "inputs": {
+      "samples": [
+        "89",
+        1
+      ],
+      "vae": [
+        "42",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "99": {
+    "inputs": {
+      "noise_seed": 1535004770
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "108": {
+    "inputs": {
+      "text": "A young woman Lil1AI in stylish minimal beachwear in a soft pastel color — such as dusty rose, muted teal, or warm sand tone — sits on a large weathered rock at the edge of the beach. She smiles gently, looking out over the sea as the sun sets low on the horizon. Her figure is natural and feminine, with medium-sized bust and soft. The warm sunset light casts a golden glow on her skin and highlights her hair as a soft breeze lifts loose strands. Waves gently crash against the base of the rock, and distant beachgoers stroll along the shore with realistic human proportions. The mood is peaceful, cinematic, and aesthetically pleasing. Cinematic hyperrealistic style, soft natural golden light, high detail in skin, fabric, rock, and water, no text, no watermarks.\n",
+      "clip": [
+        "46",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "109": {
+    "inputs": {
+      "upscale_by": 2.0000000000000004,
+      "seed": 857265076835855,
+      "steps": 12,
+      "cfg": 1,
+      "sampler_name": "heun",
+      "scheduler": "beta",
+      "denoise": 0.3400000000000001,
+      "mode_type": "Linear",
+      "tile_width": 1024,
+      "tile_height": 1024,
+      "mask_blur": 8,
+      "tile_padding": 32,
+      "seam_fix_mode": "None",
+      "seam_fix_denoise": 1,
+      "seam_fix_width": 64,
+      "seam_fix_mask_blur": 8,
+      "seam_fix_padding": 16,
+      "force_uniform_tiles": true,
+      "tiled_decode": false,
+      "image": [
+        "98",
+        0
+      ],
+      "model": [
+        "46",
+        0
+      ],
+      "positive": [
+        "159",
+        0
+      ],
+      "negative": [
+        "116",
+        0
+      ],
+      "vae": [
+        "42",
+        2
+      ],
+      "upscale_model": [
+        "64",
+        0
+      ]
+    },
+    "class_type": "UltimateSDUpscale",
+    "_meta": {
+      "title": "Ultimate SD Upscale"
+    }
+  },
+  "112": {
+    "inputs": {
+      "radius": 10,
+      "intensity": 0.4,
+      "image": [
+        "122",
+        0
+      ]
+    },
+    "class_type": "Image Bloom Filter",
+    "_meta": {
+      "title": "Image Bloom Filter"
+    }
+  },
+  "113": {
+    "inputs": {
+      "UNKNOWN": "fixed",
+      "image": [
+        "112",
+        0
+      ]
+    },
+    "_meta": {}
+  },
+  "114": {
+    "inputs": {
+      "UNKNOWN": 8,
+      "image": [
+        "113",
+        0
+      ]
+    },
+    "_meta": {}
+  },
+  "116": {
+    "inputs": {
+      "text": "blurry text, distorted race bib, broken limbs, missing arms or legs, disfigured faces, duplicated people, low detail background, faceless crowd, floating people, cartoon, anime, lingerie, fantasy elements, exaggerated features, distorted proportions, overexposed light, lens flare, messy hair, watermark, text overlay\n",
+      "clip": [
+        "46",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "122": {
+    "inputs": {
+      "iterations": 2,
+      "kernel_size": 3,
+      "images": [
+        "129",
+        0
+      ]
+    },
+    "class_type": "Image Lucy Sharpen",
+    "_meta": {
+      "title": "Image Lucy Sharpen"
+    }
+  },
+  "126": {
+    "inputs": {
+      "width": 1088,
+      "height": 1344,
+      "upscale_method": "nearest-exact",
+      "keep_proportion": false,
+      "divisible_by": 2,
+      "crop": 0,
+      "image": [
+        "54",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJ",
+    "_meta": {
+      "title": "Resize Image (deprecated)"
+    }
+  },
+  "129": {
+    "inputs": {
+      "red_offset": 0,
+      "green_offset": 0,
+      "blue_offset": 2,
+      "intensity": 0.4,
+      "fade_radius": 20,
+      "image": [
+        "109",
+        0
+      ]
+    },
+    "class_type": "Image Chromatic Aberration",
+    "_meta": {
+      "title": "Image Chromatic Aberration"
+    }
+  },
+  "143": {
+    "inputs": {
+      "filename_prefix": "FluxBasic/FluxBasicUpscale",
+      "images": [
+        "114",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "144": {
+    "inputs": {
+      "filename_prefix": "FluxBasic/FluxBasic",
+      "images": [
+        "98",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "159": {
+    "inputs": {
+      "guidance": 3.2,
+      "conditioning": [
+        "108",
+        0
+      ]
+    },
+    "class_type": "FluxGuidance",
+    "_meta": {
+      "title": "FluxGuidance"
+    }
+  },
+  "166": {
+    "inputs": {
+      "rgthree_comparer": {
+        "images": [
+          {
+            "name": "A",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_ngeyk_00015_.png&type=temp&subfolder=&rand=0.9766290118267977"
+          },
+          {
+            "name": "B",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_ngeyk_00016_.png&type=temp&subfolder=&rand=0.002807640989108018"
+          }
+        ]
+      },
+      "image_a": [
+        "98",
+        0
+      ],
+      "image_b": [
+        "114",
+        0
+      ]
+    },
+    "class_type": "Image Comparer (rgthree)",
+    "_meta": {
+      "title": "Image Comparer (rgthree)"
+    }
+  }
+}
