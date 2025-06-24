@@ -15,7 +15,7 @@ RUN comfy-node-install \
 
 # --- This requires the HF_TOKEN and CIVITAI_TOKEN to be set as ---
 # --- Build Arguments in the RunPod Template configuration. ---
-ENV HF_TOKEN="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"
+ENV HF_TOKEN="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"
 ENV CIVITAI_TOKEN="5840b539d6d4aeb2827b98f550555710"
 
 # 3. Create all necessary model directories in a single layer for efficiency.
