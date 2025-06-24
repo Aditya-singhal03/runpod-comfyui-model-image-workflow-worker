@@ -17,8 +17,8 @@ RUN comfy-node-install \
 # This command configures the token for all subsequent downloads in this build.
 ARG HF_TOKEN
 ARG CIVITAI_TOKEN
-RUN comfy --set-hf-api-token "$HF_TOKEN"
-RUN comfy --set-civitai-api-token "$CIVITAI_TOKEN"
+RUN comfy --set-hf-api-token "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"
+RUN comfy --set-civitai-api-token "5840b539d6d4aeb2827b98f550555710"
 
 # 3. Download all the models your workflow needs.
 # The tool will now automatically use the token we just set.
