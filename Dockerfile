@@ -11,18 +11,19 @@ RUN comfy-node-install \
     comfyui_essentials \
     comfy-mtb
 
-# --- THE FIX: Set the Hugging Face token as an environment variable first ---
-# The secret 'HF_TOKEN' must be created in your GitHub repository settings.
-# This ARG will receive the secret from the build command.
+# --- THE FIX: Securely Set the Hugging Face Token First ---
+# This RUN command will have access to the HF_TOKEN secret from GitHub.
+# It uses the CORRECT '--set-hf-api-token' flag to configure comfy-cli.
+# This command configures the token for all subsequent downloads in this build.
 ARG HF_TOKEN
-# This ENV makes the token available to all subsequent RUN commands.
-ENV HUGGING_FACE_HUB_TOKEN=$HF_TOKEN
+ARG CIVITAI_TOKEN
+RUN comfy --set-hf-api-token "$HF_TOKEN"
+RUN comfy --set-civitai-api-token "$CIVITAI_TOKEN"
 
 # 3. Download all the models your workflow needs.
+# The tool will now automatically use the token we just set.
 
 # --- Checkpoints ---
-# Now, we don't need to pass the token as a command-line argument.
-# The comfy tool will automatically pick it up from the environment variable.
 RUN comfy model download --url "https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors?download=true" \
                          --relative-path models/checkpoints --filename "FLUX1/flux1-dev.sft"
 
