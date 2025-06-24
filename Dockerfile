@@ -15,8 +15,6 @@ RUN comfy-node-install \
 # This RUN command will have access to the HF_TOKEN secret from GitHub.
 # It uses the CORRECT '--set-hf-api-token' flag to configure comfy-cli.
 # This command configures the token for all subsequent downloads in this build.
-ARG HF_TOKEN
-ARG CIVITAI_TOKEN
 RUN comfy --set-hf-api-token "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"
 RUN comfy --set-civitai-api-token "5840b539d6d4aeb2827b98f550555710"
 
