@@ -10,7 +10,7 @@ FROM runpod/worker-comfyui:5.1.0-base
 #     comfyui_ultimatesdupscale \
 #     comfyui_essentials \
 #     comfy-mtb
-ARG HF_TOKEN
+# ARG HF_TOKEN
 # --- THE FIX: Securely create a .env file with BOTH secrets ---
 # This single RUN command creates the .env file that comfy-cli will automatically
 # read to get credentials for both Hugging Face and Civitai.
@@ -24,7 +24,7 @@ ARG HF_TOKEN
 # We use the more explicit --output-path and --output-name flags.
 
 # --- Checkpoints ---
-RUN comfy model download --set-hf-api-token "${HF_TOKEN}" --url "https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors?download=true" \
+RUN comfy model download --set-hf-api-token "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" --url "https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors?download=true" \
                          --relative-path models/checkpoints --filename "flux1-dev.sft"
 
 # --- LoRAs ---
