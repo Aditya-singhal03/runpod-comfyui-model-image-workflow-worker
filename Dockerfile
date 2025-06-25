@@ -24,7 +24,7 @@ FROM runpod/worker-comfyui:5.1.0-base
 # We use the more explicit --output-path and --output-name flags.
 
 # --- Checkpoints ---
-RUN comfy model download --set-hf-api-token "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" --url "https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors?download=true" \
+RUN comfy model download --set-hf-api-token "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" --url "https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors?download=true" \
                          --relative-path models/checkpoints --filename "flux1-dev.sft"
 
 # --- LoRAs ---
