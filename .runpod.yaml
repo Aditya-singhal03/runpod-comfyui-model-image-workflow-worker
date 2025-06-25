@@ -1,0 +1,4 @@
+image:
+  type: docker
+  build_args:
+    HF_TOKEN: ${HF_TOKEN}  # Refer to RunPod env var here if supported
