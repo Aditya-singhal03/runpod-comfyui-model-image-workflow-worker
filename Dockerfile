@@ -16,6 +16,7 @@ FROM runpod/worker-comfyui:5.1.0-base
 # --- This requires the HF_TOKEN and CIVITAI_TOKEN to be set as ---
 # --- Build Arguments in the RunPod Template configuration. ---
 ENV CIVITAI_TOKEN="5840b539d6d4aeb2827b98f550555710"
+RUN echo $CIVITAI_TOKEN
 
 
 # 3. Create all necessary model directories in a single layer for efficiency.
