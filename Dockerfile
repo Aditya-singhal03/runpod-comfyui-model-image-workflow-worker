@@ -1,13 +1,5 @@
 FROM runpod/worker-comfyui:5.1.0-base
 
-# 2. Install all the Custom Nodes required by your workflow.
-RUN comfy-node-install \
-    rgthree-comfy \
-    comfyui-kjnodes \
-    comfyui_ultimatesdupscale \
-    comfyui_essentials \
-    comfy-mtb
-
 ENV CIVITAI_TOKEN="5840b539d6d4aeb2827b98f550555710"
 RUN echo $CIVITAI_TOKEN
 
@@ -43,3 +35,13 @@ RUN wget -O "/comfyui/models/upscale_models/4x-ClearRealityV1.pth" "https://hugg
 
 # # 5. Copy your static input image file into the image.
 COPY input/ /comfyui/input/
+
+RUN comfy-node-install \
+    rgthree-comfy \
+    comfyui-kjnodes \
+    comfyui_ultimatesdupscale \
+    comfyui_essentials \
+    comfy-mtb \
+    comfyui-advanced-controlnet \
+    comfyui-detail-daemon \
+    comfyui_tinyterranodes
