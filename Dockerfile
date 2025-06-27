@@ -44,4 +44,5 @@ RUN comfy-node-install \
     comfy-mtb \
     comfyui-advanced-controlnet \
     comfyui-detail-daemon \
-    comfyui_tinyterranodes
+    comfyui_tinyterranodes \
+    was-node-suite-comfyui
