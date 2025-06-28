@@ -1,8 +1,8 @@
 FROM runpod/worker-comfyui:5.1.0-base
 
+
 ENV CIVITAI_TOKEN="5840b539d6d4aeb2827b98f550555710"
 RUN echo $CIVITAI_TOKEN
-
 
 # 3. Create all necessary model directories in a single layer for efficiency.
 # The -p flag creates parent directories as needed (like 'controlnet').
@@ -36,6 +36,8 @@ RUN wget -O "/comfyui/models/upscale_models/4x-ClearRealityV1.pth" "https://hugg
 # # 5. Copy your static input image file into the image.
 COPY input/ /comfyui/input/
 
+RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+
 RUN comfy-node-install \
     rgthree-comfy \
     comfyui-kjnodes \
@@ -45,4 +47,6 @@ RUN comfy-node-install \
     comfyui-advanced-controlnet \
     comfyui-detail-daemon \
     comfyui_tinyterranodes \
-    was-node-suite-comfyui
+    was-node-suite-comfyui && \
+    cd /comfyui/custom_nodes && \
+    git clone https://github.com/spacepxl/ComfyUI-Image-Filters.git
