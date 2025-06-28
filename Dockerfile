@@ -17,7 +17,7 @@ RUN mkdir -p \
 
 # --- Checkpoints ---
 # RUN wget -O "/comfyui/models/checkpoints/FLUX1/flux1-dev.sft" "https://civitai.com/api/download/models/691639?type=Model&format=SafeTensor&size=full&fp=fp32&token=${CIVITAI_TOKEN}"
-RUN comfy model download --url "https://huggingface.co/singhal4896/lily_lora/resolve/main/flux1-dev.safetensors?download=true" --relative-path models/checkpoints --filename "flux1-dev.sft"
+RUN comfy model download --url "https://huggingface.co/singhal4896/lily_lora/resolve/main/flux1-dev-fp8.safetensors?download=true" --relative-path models/checkpoints --filename "flux1-dev.sft"
 
 # --- LoRAs ---
 # RUN wget -O "/comfyui/models/loras/lily-ai-avatar.safetensors" "https://huggingface.co/singhal4896/lily_lora/resolve/main/lily-ai-avatar.safetensors?download=true"

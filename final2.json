@@ -1,7 +1,7 @@
 {
   "42": {
     "inputs": {
-      "ckpt_name": "FLUX1/flux1-dev.sft"
+      "ckpt_name": "flux1-dev.sft"
     },
     "class_type": "CheckpointLoaderSimple",
     "_meta": {
