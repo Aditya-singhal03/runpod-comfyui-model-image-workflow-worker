@@ -1,0 +1,3 @@
+*.json
+test.py
+venv/
