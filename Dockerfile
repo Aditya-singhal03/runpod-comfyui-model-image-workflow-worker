@@ -33,9 +33,6 @@ RUN wget -O "/comfyui/models/controlnet/FLUX.1/InstantX-FLUX1-Dev-Union/diffusio
 # # --- Upscale Models ---
 RUN wget -O "/comfyui/models/upscale_models/4x-ClearRealityV1.pth" "https://huggingface.co/skbhadra/ClearRealityV1/resolve/main/4x-ClearRealityV1.pth?download=true"
 
-# # 5. Copy your static input image file into the image.
-COPY input/ /comfyui/input/
-
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
 RUN comfy-node-install \
