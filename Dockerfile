@@ -19,7 +19,7 @@ RUN mkdir -p \
 # 4. Download all the models your workflow needs using wget.
 
 # --- Diffusion Model ---
-RUN comfy model download --url "https://huggingface.co/Comfy-Org/flux1-kontext-dev_ComfyUI/resolve/main/split_files/diffusion_models/flux1-dev-kontext_fp8_scaled.safetensors?download=true" --relative-path models/diffusion_models --filename "flux1-dev.sft"
+RUN comfy model download --url "https://huggingface.co/singhal4896/lily_lora/resolve/main/flux1-dev-fp8.safetensors?download=true" --relative-path models/diffusion_models --filename "flux1-dev.sft"
 # --- VAE Model ---
 RUN wget -O "/comfyui/models/vae/ae.safetensors" "https://huggingface.co/lovis93/testllm/resolve/ed9cf1af7465cebca4649157f118e331cf2a084f/ae.safetensors?download=true"
 
